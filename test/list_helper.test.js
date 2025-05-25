@@ -2,17 +2,11 @@ const { test, describe } = require("node:test");
 const assert = require("node:assert");
 const listHelper = require("../utils/list_helper");
 
-test("dummy returns one", () => {
-  const blogs = [];
 
-  const result = listHelper.dummy(blogs);
-  assert.strictEqual(result, 1);
-});
 
-describe("total likes", () => {
-  const emptyBlogs = [];
+const emptyBlogs = [];
 
-  const listWithOneBlog = [
+const listWithOneBlog = [
     {
       _id: "5a422aa71b54a676234d17f8",
       title: "Go To Statement Considered Harmful",
@@ -23,7 +17,7 @@ describe("total likes", () => {
     },
   ];
 
-  const listWithManyBlog = [
+const listWithManyBlog = [
     {
       _id: "5a422a851b54a676234d17f7",
       title: "React patterns",
@@ -74,6 +68,15 @@ describe("total likes", () => {
     },
   ];
 
+
+test("dummy returns one", () => {
+
+  const result = listHelper.dummy(emptyBlogs);
+  assert.strictEqual(result, 1);
+});
+
+describe("total likes", () => {
+
   test("of empty list is zero", () => {
     const result = listHelper.totalLike(emptyBlogs);
     assert.strictEqual(result, 0);
@@ -88,4 +91,25 @@ describe("total likes", () => {
     const result = listHelper.totalLike(listWithManyBlog);
     assert.strictEqual(result, 36);
   });
+
 });
+
+
+describe("favorite blog", () => {
+  test("of empty list is null", () => {
+    const result = listHelper.favoriteBlog(emptyBlogs);
+    assert.strictEqual(result, null);
+  });
+
+  test("when list has only one blog, equals that blog", () => {
+    const result = listHelper.favoriteBlog(listWithOneBlog);
+    assert.deepStrictEqual(result, listWithOneBlog[0]);
+  });
+
+  test("of a bigger list is the one with most likes", () => {
+    const result = listHelper.favoriteBlog(listWithManyBlog);
+    assert.deepStrictEqual(result, listWithManyBlog[2]);
+  });
+}
+
+)
